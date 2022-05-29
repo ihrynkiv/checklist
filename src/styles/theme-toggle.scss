@@ -1,0 +1,43 @@
+.switch {
+  position: fixed;
+  top: 3px;
+  right: 25px;
+
+  & input[type="checkbox"] {
+    visibility: hidden;
+    &:checked + label {
+      transform: rotate(360deg);
+      background-color: #000;
+      &:before {
+        transform: translateX(45px);
+        background-color: #FFF;
+      }
+    }
+  }
+
+  & label {
+    display: flex;
+    width: 90px;
+    height: 45px;
+    border: 3px solid black;
+    border-radius: 99em;
+    position: relative;
+    transition: transform .75s ease-in-out;
+    transform-origin: 50% 50%;
+    cursor: pointer;
+
+    &:before {
+      transition: transform .75s ease;
+      transition-delay: .5s;
+      content: "";
+      display: block;
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      background-color: #000;
+      border-radius: 50%;
+      top: 6px;
+      left: 6px;
+    }
+  }
+}

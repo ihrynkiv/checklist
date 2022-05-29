@@ -1,0 +1,81 @@
+.c-cb {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  display: block;
+  position: relative;
+  min-height: 44px;
+  padding-left: 40px;
+  clear: left;
+
+  & > label::before, & > input[type="checkbox"] {
+    box-sizing: border-box;
+    top: -2px;
+    left: -2px;
+    width: 44px;
+    height: 44px;
+  }
+
+  & > input[type="checkbox"] {
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    opacity: 0;
+    &:checked + label::after {
+      opacity: 1;
+    }
+  }
+
+  & > label {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 9px 15px 15px;
+    cursor: pointer;
+    touch-action: manipulation;
+
+    &::before {
+      content: "";
+      position: absolute;
+      border: 2px solid currentColor;
+      background: transparent;
+    }
+  }
+
+  & > label[data-completed='1']::after {
+    box-sizing: content-box;
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 9px;
+    width: 18px;
+    height: 7px;
+    transform: rotate(-45deg);
+    border: solid;
+    border-width: 0 0 5px 5px;
+    border-top-color: transparent;
+    opacity: 0;
+    background: transparent;
+  }
+
+  & > label[data-completed='2']::after {
+    box-sizing: content-box;
+    content: "\274c";
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    top: 6px;
+    left: 8px;
+    text-align: center;
+    opacity: 0;
+    background: transparent;
+    color: red
+  }
+}

@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './dark.css';
+import './styles/index.scss';
+import './styles/checkbox.scss'
+import './styles/buttons.scss'
+import './styles/todo.scss'
+import './styles/theme-toggle.scss'
+import './styles/dark.scss';
 import App from './App';
 import {CHECK_LIST} from "./constants";
 import ThemeContextWrapper from "./components/ThemeContextWrapper";

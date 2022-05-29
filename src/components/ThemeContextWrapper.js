@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeContext, themes } from '../contexts/ThemeContext';
 
-const THEMES = {
-    DARK: 'dark',
-    LIGHT: 'light'
-}
-
 export default function ThemeContextWrapper(props) {
     const [theme, setTheme] = useState(window.localStorage.getItem('theme') || themes.light);
 

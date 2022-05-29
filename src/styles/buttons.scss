@@ -1,0 +1,61 @@
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  &, input {
+    overflow: visible;
+  }
+}
+
+.btn {
+  padding: 0.8rem 1rem 0.7rem;
+  border: 0.2rem solid #4d4d4d;
+  cursor: pointer;
+  text-transform: capitalize;
+
+  &.toggle-btn {
+    border-width: 1px;
+    border-color: #d3d3d3;
+
+    &[aria-pressed="true"] {
+      text-decoration: underline;
+      border-width: 2px;
+      border-color: #646FD4;
+    }
+  }
+
+  &-group {
+    display: flex;
+    justify-content: space-between;
+    & > * {
+      flex: 1 1 49%;
+      & + * {
+        margin-left: 0.8rem;
+      }
+    }
+  }
+}
