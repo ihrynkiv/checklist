@@ -4,7 +4,7 @@ import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 import {CHECK_LIST_TYPES, CHECK_STATE_ARR} from "./constants";
 import {Counter} from "./components/Counter";
-import {Switch} from "./components/Switch";
+import {ThemeToggle} from "./components/ThemeToggle";
 
 
 function usePrevious(value) {
@@ -88,7 +88,7 @@ function App(props) {
         {taskList}
       </ul>
       <Counter tasks={tasks}/>
-      <Switch/>
+      <ThemeToggle/>
     </div>
   );
 }

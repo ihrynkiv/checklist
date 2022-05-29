@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const Counter = ({tasks}) => {
-    console.log(tasks)
     const completedTasks = tasks.filter(task => task.completedId)
 
     return (
