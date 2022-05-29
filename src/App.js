@@ -5,7 +5,8 @@ import Todo from "./components/Todo";
 import {CHECK_LIST_TYPES, CHECK_STATE_ARR} from "./constants";
 import {Counter} from "./components/Counter";
 import {ThemeToggle} from "./components/ThemeToggle";
-
+import {useSearchParams} from "react-router-dom"
+import {Navigation} from "./components/Navigation";
 
 function usePrevious(value) {
   const ref = useRef();
@@ -26,6 +27,27 @@ const TABS_NAMES = Object.keys(TABS_MAP);
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
   const [tab, setTab] = useState(window.localStorage.getItem('tab') || CHECK_LIST_TYPES.STYLE);
+
+  const [searchParams] = useSearchParams()
+  const name = searchParams.get("name")
+  const url = searchParams.get("url")
+  const author = searchParams.get("author")
+  const repo = searchParams.get("repo")
+
+  if (name && url ) {
+    const dataJSON = localStorage.getItem('reviews') || JSON.stringify([])
+    console.log(dataJSON)
+    const data = JSON.parse(dataJSON)
+
+    const alreadyExist = !!data.find(item => item.url === url)
+    if(!alreadyExist) {
+      data.push({name, url, author, repo})
+      localStorage.setItem('reviews', JSON.stringify(data))
+    }
+  }
+
+  const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('reviews')) || [])
+  const [active, setActive] = useState(+localStorage.getItem('activeReview') || 0)
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map(task => {
@@ -87,6 +109,7 @@ function App(props) {
       >
         {taskList}
       </ul>
+      <Navigation reviews={reviews} active={active} onChange={setActive}/>
       <Counter tasks={tasks}/>
       <ThemeToggle/>
     </div>
