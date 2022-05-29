@@ -21,11 +21,11 @@
 
 .todoapp {
   background: #fff;
-  margin: 2rem 0 4rem 0;
+  margin: 2rem 0;
   padding: 1rem;
   position: relative;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2.5rem 5rem 0 rgba(0, 0, 0, 0.1);
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - 12rem);
 
   & > * {
     max-width: 70rem;

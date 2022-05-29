@@ -1,14 +1,19 @@
 import React from "react";
 
-function FilterButton(props) {
+function FilterButton({isPressed, name, setFilter}) {
+  const handleFilterChange = () => {
+    setFilter(name)
+    window.localStorage.setItem('tab', name)
+  }
+
   return (
     <button
       type="button"
       className="btn toggle-btn"
-      aria-pressed={props.isPressed}
-      onClick={() => props.setFilter(props.name)}
+      aria-pressed={isPressed}
+      onClick={handleFilterChange}
     >
-      <span className="noselect">{props.name}</span>
+      <span className="noselect">{name}</span>
     </button>
   );
 }

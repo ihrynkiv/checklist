@@ -38,12 +38,12 @@ button {
   text-transform: capitalize;
 
   &.toggle-btn {
-    border-width: 1px;
+    border-width: 0.1rem;
     border-color: #d3d3d3;
 
     &[aria-pressed="true"] {
       text-decoration: underline;
-      border-width: 2px;
+      border-width: 0.2rem;
       border-color: #646FD4;
     }
   }

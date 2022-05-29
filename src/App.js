@@ -15,17 +15,17 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const FILTER_MAP = {
+const TABS_MAP = {
   Style: task => task.type === CHECK_LIST_TYPES.STYLE,
   Solution: task => task.type === CHECK_LIST_TYPES.SOLUTION,
   Tests: task => task.type === CHECK_LIST_TYPES.TESTS,
 };
 
-const FILTER_NAMES = Object.keys(FILTER_MAP);
+const TABS_NAMES = Object.keys(TABS_MAP);
 
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
-  const [filter, setFilter] = useState('Style');
+  const [tab, setTab] = useState(window.localStorage.getItem('tab') || CHECK_LIST_TYPES.STYLE);
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map(task => {
@@ -38,7 +38,7 @@ function App(props) {
   }
 
   const taskList = tasks
-  .filter(FILTER_MAP[filter])
+  .filter(TABS_MAP[tab])
   .map(task => (
     <Todo
       id={task.id}
@@ -49,12 +49,12 @@ function App(props) {
     />
   ));
 
-  const filterList = FILTER_NAMES.map(name => (
+  const filterList = TABS_NAMES.map(name => (
     <FilterButton
       key={name}
       name={name}
-      isPressed={name === filter}
-      setFilter={setFilter}
+      isPressed={name === tab}
+      setFilter={setTab}
     />
   ));
 

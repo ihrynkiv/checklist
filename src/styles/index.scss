@@ -106,12 +106,6 @@ input[type="text"] {
 
 .counter {
   position: fixed;
-  top: 3px;
-  left: 25px;
-}
-
-@media only screen and (max-width: 880px) and (max-height: 600px){
-  .counter {
-    display: none;
-  }
+  bottom: 25px;
+  right: 25px;
 }
