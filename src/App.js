@@ -51,10 +51,10 @@ function App() {
         data.push({name, url, author, repo, state: CHECK_LIST})
         localStorage.setItem('reviews', JSON.stringify(data))
       }
-      localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
-      setReviews(data)
-      setActive(alreadyExist + 1)
+      localStorage.setItem('activeReview', (alreadyExist + 1))
       setTasks(JSON.parse(localStorage.getItem('reviews'))?.[alreadyExist + 1])
+      setActive((alreadyExist + 1)  || data.length)
+      setReviews(data)
     }
   }, [author, name, repo, url])
 
