@@ -129,7 +129,7 @@ function App() {
 
 
   useEffect(() => {
-    navigate('/')
+    navigate('/checklist')
   }, [navigate])
 
   const handleDelete = () => {
