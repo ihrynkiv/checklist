@@ -9,7 +9,7 @@ const Form = ({reviews = [], active = 0}) => {
       <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg">
             {
-                url ?  <a target="_blank" href={url}>{title}</a> : title
+                url ?  <a  rel="noopener noreferrer" target="_blank" href={url}>{title}</a> : title
             }
         </label>
       </h2>

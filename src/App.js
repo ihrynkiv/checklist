@@ -123,7 +123,7 @@ function App() {
       localStorage.setItem('reviews', JSON.stringify(reviews))
       setReviews(reviews)
     } else {
-      localStorage.setItem('defaultState', JSON.stringify({ CHECK_LIST }))
+      localStorage.setItem('defaultState', JSON.stringify(CHECK_LIST))
     }
     setTasks(CHECK_LIST)
   }
@@ -143,10 +143,11 @@ function App() {
     const newReviews = [...reviews]
     newReviews.splice(active - 1, 1)
 
-    localStorage.setItem('activeReview', '0')
+    const newActive = active <= newReviews.length ? active : newReviews.length
+    localStorage.setItem('activeReview', newActive.toString())
     localStorage.setItem('reviews', JSON.stringify(newReviews))
 
-    setActive(() => 0)
+    setActive(() => newActive)
     setReviews(() => newReviews)
   }
 

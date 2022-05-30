@@ -13,8 +13,8 @@ export const Navbar = ({reviews, active}) => {
     }
     return (
         <div className="navbar">
-            <div className="navbar-item"><a target="_blank" href={`https://github.com/${author}`}><FaRegUser/> {author} </a></div>
-            <div className="navbar-item"><a target="_blank" href={`https://github.com/MackeyRMS/${repo}/pulls`}><BsGithub/> {repo} </a></div>
+            <div className="navbar-item"><a rel="noopener noreferrer" target="_blank" href={`https://github.com/${author}`}><FaRegUser/> {author} </a></div>
+            <div className="navbar-item"><a rel="noopener noreferrer" target="_blank" href={`https://github.com/MackeyRMS/${repo}/pulls`}><BsGithub/> {repo} </a></div>
         </div>
     )
 }
