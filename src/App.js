@@ -52,6 +52,7 @@ function App() {
     }
     localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
     window.location.reload();
+    console.log('reload')
   }
 
   useEffect(() => {
