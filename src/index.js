@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from "react-router-dom";
+
+import App from './App';
+import ThemeContextWrapper from "./components/ThemeContextWrapper";
+import {CHECK_LIST} from "./constants";
+
 import './styles/index.scss';
 import './styles/checkbox.scss'
 import './styles/buttons.scss'
@@ -8,10 +14,6 @@ import './styles/navbar.scss'
 import './styles/navigation.scss'
 import './styles/theme-toggle.scss'
 import './styles/dark.scss';
-import App from './App';
-import {CHECK_LIST} from "./constants";
-import ThemeContextWrapper from "./components/ThemeContextWrapper";
-import { BrowserRouter } from "react-router-dom"
 
 if (!localStorage.getItem('defaultState')) {
     localStorage.setItem('defaultState', JSON.stringify(CHECK_LIST))

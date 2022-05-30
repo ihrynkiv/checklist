@@ -2,7 +2,6 @@ import React from "react";
 import {AiFillDelete, BsFillStarFill} from "react-icons/all";
 
 export const Navigation = ({reviews = [], active, onChange, onDelete}) => {
-
     return (
         <div className='navigation'>
             <div className={!active ? 'navigation-item active' : 'navigation-item'}
@@ -17,7 +16,7 @@ export const Navigation = ({reviews = [], active, onChange, onDelete}) => {
             })}
             {!!active &&
                 <div className={'navigation-item delete'}
-                 onClick={onDelete}>
+                 onClick={() => onDelete()}>
                 <AiFillDelete/>
             </div>}
         </div>

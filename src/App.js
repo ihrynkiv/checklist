@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import {useNavigate, useSearchParams} from "react-router-dom"
+import React, {useState, useEffect} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import { GlobalHotKeys } from "react-hotkeys";
 
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
@@ -10,14 +11,6 @@ import {ThemeToggle} from "./components/ThemeToggle";
 import {Navigation} from "./components/Navigation";
 import {Navbar} from "./components/Navbar";
 
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 const TABS_MAP = {
   Style: task => task.type === CHECK_LIST_TYPES.STYLE,
   Solution: task => task.type === CHECK_LIST_TYPES.SOLUTION,
@@ -25,6 +18,15 @@ const TABS_MAP = {
 };
 
 const TABS_NAMES = Object.keys(TABS_MAP);
+
+const keyMap = {
+  CLEAR_REVIEW: ["del", "backspace"],
+  DELETE_REVIEW: ["shift+del", "shift+backspace"],
+  NAVIGATION: ["alt+1", "alt+2", "alt+3", "alt+4", "alt+5", "alt+6", "alt+7", "alt+8", "alt+9", "alt+0"],
+  RIGHT: ["right", "d", "l"],
+  LEFT: ["left", "a", "h"],
+  CHECK_ITEM: ["1", "2", "3", "4", "5"]
+}
 
 function App() {
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('defaultState')));
@@ -51,13 +53,13 @@ function App() {
         data.push({name, url, author, repo, state: CHECK_LIST})
         localStorage.setItem('reviews', JSON.stringify(data))
       }
-      localStorage.setItem('activeReview', (alreadyExist + 1))
+
+      localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
       setTasks(JSON.parse(localStorage.getItem('reviews'))?.[alreadyExist + 1])
       setActive((alreadyExist + 1)  || data.length)
       setReviews(data)
     }
   }, [author, name, repo, url])
-
 
   useEffect(() => {
     const defaultState = JSON.parse(localStorage.getItem('defaultState'))
@@ -68,22 +70,28 @@ function App() {
     }
   }, [reviews, active, setTasks])
 
-  function toggleTaskCompleted(id) {
+  function toggleTaskCompleted(id, e) {
     const updatedTasks = tasks.map(task => {
       if (id === task.id) {
         return {...task, completedId: (task.completedId + 1) % CHECK_STATE_ARR.length}
       }
       return task;
     });
+
     setTasks(updatedTasks);
     const reviews = JSON.parse(localStorage.getItem('reviews'))
     const currentReview = reviews?.[active - 1]
+
     if (currentReview) {
       currentReview.state = updatedTasks
       localStorage.setItem('reviews', JSON.stringify(reviews))
       setReviews(reviews)
     } else {
       localStorage.setItem('defaultState', JSON.stringify(updatedTasks))
+    }
+
+    if (e && e.target) {
+      e.target.blur()
     }
   }
 
@@ -112,12 +120,9 @@ function App() {
   const itemsNoun = inProgressItems.length !== 1 ? 'items' : 'item';
   const headingText = `${inProgressItems.length} ${itemsNoun} remaining`;
 
-  const listHeadingRef = useRef(null);
-  const prevTaskLength = usePrevious(tasks.length);
-
-  const clearHandler = () => {
+  const clearHandler = (activeId) => {
     const reviews = JSON.parse(localStorage.getItem('reviews'))
-    const currentReview = reviews?.[active - 1]
+    const currentReview = reviews?.[activeId || (active - 1)]
     if (currentReview) {
       currentReview.state = CHECK_LIST
       localStorage.setItem('reviews', JSON.stringify(reviews))
@@ -129,17 +134,12 @@ function App() {
   }
 
   useEffect(() => {
-    if (tasks.length - prevTaskLength === -1) {
-      listHeadingRef.current.focus();
-    }
-  }, [tasks.length, prevTaskLength]);
-
-
-  useEffect(() => {
     navigate('/checklist')
   }, [navigate])
 
-  const handleDelete = () => {
+  const deleteHandler = ( active) => {
+    if (!active) return
+
     const newReviews = [...reviews]
     newReviews.splice(active - 1, 1)
 
@@ -151,37 +151,72 @@ function App() {
     setReviews(() => newReviews)
   }
 
+  const handlers = {
+    CLEAR_REVIEW: () => clearHandler(localStorage.getItem('activeReview') - 1),
+    NAVIGATION: (e) => {
+      const activeId = +e.code.match(/\d+/g)
+      if (isNaN(activeId)) return null
+      const newActive = activeId <= reviews?.length ? activeId : (reviews?.length || 0)
+      localStorage.setItem('activeReview', newActive.toString())
+      setActive(newActive)
+    },
+    RIGHT: () => {
+      const currentTab = localStorage.getItem('tab') || tab
+      const activeTabIndex = TABS_NAMES.indexOf(currentTab)
+      const newTab = TABS_NAMES[(activeTabIndex + 1) % TABS_NAMES.length]
+
+      localStorage.setItem('tab', newTab)
+      setTab(newTab)
+    },
+    LEFT: () => {
+      const currentTab = localStorage.getItem('tab') || tab
+      const activeTabIndex = TABS_NAMES.indexOf(currentTab)
+      const newTab = TABS_NAMES[activeTabIndex - 1 < 0 ? TABS_NAMES.length - 1 : activeTabIndex - 1]
+
+      localStorage.setItem('tab', newTab)
+      setTab(newTab)
+    },
+    CHECK_ITEM: (e) => {
+      const num = +e.code.match(/\d+/g)
+      if (isNaN(num)) return null
+
+      const checkbox = document.querySelectorAll('.todo')?.[num - 1]?.querySelector('input[type="checkbox"]')
+      checkbox && checkbox.click()
+    }
+  };
+
   return (
-    <div className="todoapp stack-large" key={window.location.href}>
-      <Form reviews={reviews} active={active}/>
-      <div className="filters btn-group stack-exception">
-        { filterList }
-      </div>
-      <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
-        {headingText}
-      </h2>
-      <ul
-        role="list"
-        className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading"
-      >
-        { taskList }
-      </ul>
-      {!!reviews.length &&
-          <Navigation
-            reviews={reviews}
-            active={active}
-            onDelete={handleDelete}
-            onChange={(activeId) => {
-              localStorage.setItem('activeReview', activeId)
-              setActive(activeId)
-            }}
-          />
-      }
-      <Navbar reviews={reviews} active={active}/>
-      <Counter tasks={tasks} onClear={clearHandler}/>
-      <ThemeToggle/>
-    </div>
+        <div className="todoapp stack-large" key={window.location.href}>
+          <GlobalHotKeys handlers={handlers} keyMap={keyMap}/>
+          <Form reviews={reviews} active={active}/>
+          <div className="filters btn-group stack-exception">
+            { filterList }
+          </div>
+          <h2 id="list-heading" tabIndex="-1">
+            {headingText}
+          </h2>
+          <ul
+            role="list"
+            className="todo-list stack-large stack-exception"
+            aria-labelledby="list-heading"
+          >
+            { taskList }
+          </ul>
+          {!!reviews.length &&
+              <Navigation
+                reviews={reviews}
+                active={active}
+                onDelete={deleteHandler}
+                onChange={(activeId) => {
+                  setActive(activeId)
+                  localStorage.setItem('activeReview', activeId)
+                }}
+              />
+          }
+          <Navbar reviews={reviews} active={active}/>
+          <Counter tasks={tasks} onClear={clearHandler}/>
+          <ThemeToggle/>
+        </div>
   );
 }
 
