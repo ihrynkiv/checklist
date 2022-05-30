@@ -27,6 +27,7 @@ const TABS_NAMES = Object.keys(TABS_MAP);
 
 function App() {
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('defaultState')));
+
   const [tab, setTab] = useState(window.localStorage.getItem('tab') || CHECK_LIST_TYPES.STYLE);
   const navigate = useNavigate();
 
@@ -43,18 +44,18 @@ function App() {
     const dataJSON = localStorage.getItem('reviews') || JSON.stringify([])
     const data = JSON.parse(dataJSON)
 
-    const alreadyExist = !!data.find(item => item.url === url)
-    if(!alreadyExist) {
+    const alreadyExist = data.findIndex(item => item.name === name  && (item.url.includes(url) || url.includes(item.url)))
+    if(alreadyExist === -1) {
       data.push({name, url, author, repo, state: CHECK_LIST})
       localStorage.setItem('reviews', JSON.stringify(data))
     }
-    localStorage.setItem('activeReview', data.length)
+    localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
   }
 
   useEffect(() => {
     const defaultState = JSON.parse(localStorage.getItem('defaultState'))
     if (reviews?.[active - 1]){
-      setTasks(reviews[active - 1].state)
+      setTasks(reviews[active - 1]?.state || CHECK_LIST)
     } else if (active === 0 && defaultState){
       setTasks(defaultState)
     }
@@ -129,7 +130,7 @@ function App() {
 
   useEffect(() => {
     navigate('/')
-  }, [])
+  }, [navigate])
 
   const handleDelete = () => {
     const newReviews = [...reviews]
