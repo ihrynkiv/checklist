@@ -1,0 +1,18 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 25px;
+
+  &-item {
+    margin-top: 10px;
+  }
+
+  & a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+
+    &:hover {
+      color: #FF6800;
+    }
+  }
+}

@@ -13,7 +13,7 @@ function FilterButton({isPressed, name, setFilter}) {
       aria-pressed={isPressed}
       onClick={handleFilterChange}
     >
-      <span className="noselect">{name}</span>
+      <span>{name}</span>
     </button>
   );
 }

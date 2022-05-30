@@ -14,4 +14,15 @@
             border-color: #f5f5f5;
         }
     }
+
+    .navigation {
+        &-item {
+            border: 1px solid #353535;
+            background-color: #303030;
+        }
+
+        .active {
+            border-color: #646FD4;
+        }
+    }
 }
