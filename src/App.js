@@ -51,7 +51,6 @@ function App() {
       localStorage.setItem('reviews', JSON.stringify(data))
     }
     localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
-    window.location.reload();
     console.log('reload')
     console.log('test2')
   }
@@ -149,7 +148,7 @@ function App() {
   }
 
   return (
-    <div className="todoapp stack-large">
+    <div className="todoapp stack-large" key={window.location.href}>
       <Form reviews={reviews} active={active}/>
       <div className="filters btn-group stack-exception">
         {filterList}
