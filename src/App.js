@@ -41,18 +41,21 @@ function App() {
   const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('reviews')) || [])
   const [active, setActive] = useState(+localStorage.getItem('activeReview') || 0)
 
-  if (name && url ) {
-    const dataJSON = localStorage.getItem('reviews') || JSON.stringify([])
-    const data = JSON.parse(dataJSON)
+  useEffect(() => {
+    if (name && url ) {
+      const dataJSON = localStorage.getItem('reviews') || JSON.stringify([])
+      const data = JSON.parse(dataJSON)
 
-    const alreadyExist = data.findIndex(item => item.name === name  && (item.url.includes(url) || url.includes(item.url)))
-    if(alreadyExist === -1) {
-      data.push({name, url, author, repo, state: CHECK_LIST})
-      localStorage.setItem('reviews', JSON.stringify(data))
+      const alreadyExist = data.findIndex(item => item.name === name  && (item.url.includes(url) || url.includes(item.url)))
+      if(alreadyExist === -1) {
+        data.push({name, url, author, repo, state: CHECK_LIST})
+        localStorage.setItem('reviews', JSON.stringify(data))
+      }
+      localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
+      setActive(alreadyExist + 1)
     }
-    localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
-  }
-  console.log('key')
+  }, [author, name, repo, url])
+
 
   useEffect(() => {
     const defaultState = JSON.parse(localStorage.getItem('defaultState'))
