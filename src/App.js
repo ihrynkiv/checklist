@@ -154,7 +154,7 @@ function App() {
     <div className="todoapp stack-large" key={window.location.href}>
       <Form reviews={reviews} active={active}/>
       <div className="filters btn-group stack-exception">
-        {filterList}
+        { filterList }
       </div>
       <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
         {headingText}
@@ -164,7 +164,7 @@ function App() {
         className="todo-list stack-large stack-exception"
         aria-labelledby="list-heading"
       >
-        {taskList}
+        { taskList }
       </ul>
       {!!reviews.length &&
           <Navigation
