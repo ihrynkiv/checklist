@@ -97,6 +97,8 @@ function App() {
     />
   ));
 
+  console.log('v2')
+
   const filterList = TABS_NAMES.map(name => (
     <FilterButton
       key={name}
