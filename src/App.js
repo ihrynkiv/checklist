@@ -52,9 +52,9 @@ function App() {
         localStorage.setItem('reviews', JSON.stringify(data))
       }
       localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
-      setTasks(JSON.parse(localStorage.getItem('reviews'))?.[alreadyExist + 1])
-      setActive(alreadyExist + 1)
       setReviews(data)
+      setActive(alreadyExist + 1)
+      setTasks(JSON.parse(localStorage.getItem('reviews'))?.[alreadyExist + 1])
     }
   }, [author, name, repo, url])
 
