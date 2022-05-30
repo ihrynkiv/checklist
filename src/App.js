@@ -53,7 +53,9 @@ function App() {
     localStorage.setItem('activeReview', (alreadyExist + 1) || data.length)
     window.location.reload();
     console.log('reload')
+    console.log('test2')
   }
+  console.log('test')
 
   useEffect(() => {
     const defaultState = JSON.parse(localStorage.getItem('defaultState'))
