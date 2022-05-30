@@ -17,11 +17,13 @@
 
     .navigation {
         &-item {
-            border: 1px solid #353535;
+            //border: 1px solid #f5f5f5;
+            border-color: #f5f5f5;
             background-color: #303030;
         }
 
         .active {
+            //border: 2px solid #646FD4;
             border-color: #646FD4;
         }
     }
