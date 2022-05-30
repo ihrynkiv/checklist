@@ -4,7 +4,6 @@ const DEFAULT_TITLE = 'PR Review CheckList'
 const Form = ({reviews = [], active = 0}) => {
     const title = reviews?.[active - 1]?.name || DEFAULT_TITLE
     const url = reviews?.[active - 1]?.url || ''
-    console.log({title, url})
   return (
     <form>
       <h2 className="label-wrapper">

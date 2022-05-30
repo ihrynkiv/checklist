@@ -79,7 +79,6 @@ function App() {
     }
   }
 
-  console.log('tasks = ', tasks)
   const taskList = tasks
   .filter(TABS_MAP[tab])
   .map(task => (
@@ -132,6 +131,17 @@ function App() {
     navigate('/')
   }, [])
 
+  const handleDelete = () => {
+    const newReviews = [...reviews]
+    newReviews.splice(active - 1, 1)
+
+    localStorage.setItem('activeReview', '0')
+    localStorage.setItem('reviews', JSON.stringify(newReviews))
+
+    setActive(() => 0)
+    setReviews(() => newReviews)
+  }
+
   return (
     <div className="todoapp stack-large">
       <Form reviews={reviews} active={active}/>
@@ -152,6 +162,7 @@ function App() {
           <Navigation
             reviews={reviews}
             active={active}
+            onDelete={handleDelete}
             onChange={(activeId) => {
               localStorage.setItem('activeReview', activeId)
               setActive(activeId)

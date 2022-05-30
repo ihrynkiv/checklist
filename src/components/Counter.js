@@ -5,8 +5,8 @@ export const Counter = ({tasks, onClear}) => {
 
     return (
         <div className="counter">
-            <div className='btn btn__clear' onClick={onClear}>Clear</div>
             <div>{completedTasks.length} / {tasks.length}</div>
+            <div className='btn btn__clear' onClick={onClear}>Clear</div>
         </div>
     )
 }
