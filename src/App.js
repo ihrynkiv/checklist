@@ -138,11 +138,11 @@ function App() {
     navigate('/checklist')
   }, [navigate])
 
-  const deleteHandler = (activeId = active) => {
+  const deleteHandler = (activeId = active, reviewsList = reviews) => {
     console.log('test = ', activeId)
     if (!activeId) return
 
-    const newReviews = [...reviews]
+    const newReviews = [...reviewsList]
     newReviews.splice(activeId - 1, 1)
 
     const newActive = activeId <= newReviews.length ? activeId : newReviews.length
@@ -162,7 +162,8 @@ function App() {
       console.log('delete')
       console.log('= ',  +localStorage.getItem('activeReview'))
       const activeId = +localStorage.getItem('activeReview') || 0
-      deleteHandler(activeId)
+      const reviewsList = localStorage.getItem('reviews') || reviews || []
+      deleteHandler(activeId, reviewsList)
     },
     NAVIGATION: (e) => {
       const activeId = +e.code.match(/\d+/g)
