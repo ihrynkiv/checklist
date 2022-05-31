@@ -31,7 +31,7 @@ const keyMap = {
 function App() {
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('defaultState')));
 
-  const [tab, setTab] = useState(window.localStorage.getItem('tab') || CHECK_LIST_TYPES.STYLE);
+  const [tab, setTab] = useState(localStorage.getItem('tab') || CHECK_LIST_TYPES.STYLE);
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams()
