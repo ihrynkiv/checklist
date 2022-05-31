@@ -121,6 +121,7 @@ function App() {
   const headingText = `${inProgressItems.length} ${itemsNoun} remaining`;
 
   const clearHandler = (activeId) => {
+    console.log('clear666')
     const reviews = JSON.parse(localStorage.getItem('reviews'))
     const currentReview = reviews?.[activeId || (active - 1)]
     if (currentReview) {
