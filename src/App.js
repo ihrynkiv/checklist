@@ -137,14 +137,14 @@ function App() {
     navigate('/checklist')
   }, [navigate])
 
-  const deleteHandler = ( active) => {
-    console.log('active = ', active)
-    if (!active) return
+  const deleteHandler = (activeId) => {
+    console.log('activrId = ', activeId)
+    if (!activeId) return
 
     const newReviews = [...reviews]
-    newReviews.splice(active - 1, 1)
+    newReviews.splice(activeId - 1, 1)
 
-    const newActive = active <= newReviews.length ? active : newReviews.length
+    const newActive = activeId <= newReviews.length ? activeId : newReviews.length
     localStorage.setItem('activeReview', newActive.toString())
     localStorage.setItem('reviews', JSON.stringify(newReviews))
 
