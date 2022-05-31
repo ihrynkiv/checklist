@@ -153,11 +153,9 @@ function App() {
 
   const handlers = {
     CLEAR_REVIEW: () => {
-      console.log('clear2')
       clearHandler(localStorage.getItem('activeReview') - 1)
     },
     DELETE_REVIEW: () => {
-      console.log('delete2')
       const activeId = +localStorage.getItem('activeReview') || 0
       deleteHandler(activeId)
     },
