@@ -21,7 +21,7 @@ const TABS_NAMES = Object.keys(TABS_MAP);
 
 const keyMap = {
   CLEAR_REVIEW: ["del", "backspace"],
-  DELETE_REVIEW: ["c", "b"],
+  DELETE_REVIEW: ["shift+del", "shift+backspace"],
   NAVIGATION: ["alt+1", "alt+2", "alt+3", "alt+4", "alt+5", "alt+6", "alt+7", "alt+8", "alt+9", "alt+0"],
   RIGHT: ["right", "d", "l"],
   LEFT: ["left", "a", "h"],
