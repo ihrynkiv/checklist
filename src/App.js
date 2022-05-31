@@ -138,7 +138,6 @@ function App() {
   }, [navigate])
 
   const deleteHandler = () => {
-    console.log('active123 = ', active)
     if (!active) return
 
     const newReviews = [...reviews]
