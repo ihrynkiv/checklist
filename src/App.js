@@ -138,6 +138,7 @@ function App() {
   }, [navigate])
 
   const deleteHandler = (activeId = active) => {
+    console.log('test = ', activeId)
     if (!activeId) return
 
     const newReviews = [...reviews]
@@ -158,6 +159,7 @@ function App() {
     },
     DELETE_REVIEW: () => {
       console.log('delete')
+      console.log('= ',  +localStorage.getItem('activeReview'))
       const activeId = +localStorage.getItem('activeReview') || 0
       deleteHandler(activeId)
     },
