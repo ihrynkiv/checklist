@@ -155,7 +155,7 @@ function App() {
     CLEAR_REVIEW: () => clearHandler(localStorage.getItem('activeReview') - 1),
     DELETE_REVIEW: () => {
       const activeId = +localStorage.getItem('activeReview') || 0
-      const reviewsList = localStorage.getItem('reviews') || reviews || []
+      const reviewsList = JSON.parse(localStorage.getItem('reviews')) || reviews || []
       deleteHandler(activeId, reviewsList)
     },
     NAVIGATION: (e) => {
