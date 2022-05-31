@@ -138,7 +138,7 @@ function App() {
   }, [navigate])
 
   const deleteHandler = (activeId) => {
-    console.log('activrId = ', activeId)
+    console.log('activeId = ', activeId)
     if (!activeId) return
 
     const newReviews = [...reviews]
