@@ -121,7 +121,6 @@ function App() {
   const headingText = `${inProgressItems.length} ${itemsNoun} remaining`;
 
   const clearHandler = (activeId) => {
-    console.log('clear666')
     const reviews = JSON.parse(localStorage.getItem('reviews'))
     const currentReview = reviews?.[activeId || (active - 1)]
     if (currentReview) {
@@ -139,7 +138,6 @@ function App() {
   }, [navigate])
 
   const deleteHandler = (activeId = active, reviewsList = reviews) => {
-    console.log('test = ', activeId)
     if (!activeId) return
 
     const newReviews = [...reviewsList]
@@ -154,13 +152,8 @@ function App() {
   }
 
   const handlers = {
-    CLEAR_REVIEW: () => {
-      clearHandler(localStorage.getItem('activeReview') - 1)
-      console.log('clear')
-    },
+    CLEAR_REVIEW: () => clearHandler(localStorage.getItem('activeReview') - 1),
     DELETE_REVIEW: () => {
-      console.log('delete')
-      console.log('= ',  +localStorage.getItem('activeReview'))
       const activeId = +localStorage.getItem('activeReview') || 0
       const reviewsList = localStorage.getItem('reviews') || reviews || []
       deleteHandler(activeId, reviewsList)
