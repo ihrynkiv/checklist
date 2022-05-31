@@ -16,7 +16,7 @@ export const Navigation = ({reviews = [], active, onChange, onDelete}) => {
             })}
             {!!active &&
                 <div className={'navigation-item delete'}
-                 onClick={() => onDelete()}>
+                 onClick={onDelete}>
                 <AiFillDelete/>
             </div>}
         </div>
