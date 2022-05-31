@@ -137,13 +137,13 @@ function App() {
     navigate('/checklist')
   }, [navigate])
 
-  const deleteHandler = () => {
-    if (!active) return
+  const deleteHandler = (activeId = active) => {
+    if (!activeId) return
 
     const newReviews = [...reviews]
-    newReviews.splice(active - 1, 1)
+    newReviews.splice(activeId - 1, 1)
 
-    const newActive = active <= newReviews.length ? active : newReviews.length
+    const newActive = activeId <= newReviews.length ? activeId : newReviews.length
     localStorage.setItem('activeReview', newActive.toString())
     localStorage.setItem('reviews', JSON.stringify(newReviews))
 
@@ -153,11 +153,13 @@ function App() {
 
   const handlers = {
     CLEAR_REVIEW: () => {
-      console.log('clear')
+      console.log('clear2')
       clearHandler(localStorage.getItem('activeReview') - 1)
     },
     DELETE_REVIEW: () => {
-      console.log('delete')
+      console.log('delete2')
+      const activeId = +localStorage.getItem('activeReview') || 0
+      deleteHandler(activeId)
     },
     NAVIGATION: (e) => {
       const activeId = +e.code.match(/\d+/g)
