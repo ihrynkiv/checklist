@@ -152,7 +152,13 @@ function App() {
   }
 
   const handlers = {
-    CLEAR_REVIEW: () => clearHandler(localStorage.getItem('activeReview') - 1),
+    CLEAR_REVIEW: () => {
+      console.log('clear')
+      clearHandler(localStorage.getItem('activeReview') - 1)
+    },
+    DELETE_REVIEW: () => {
+      console.log('delete')
+    },
     NAVIGATION: (e) => {
       const activeId = +e.code.match(/\d+/g)
       if (isNaN(activeId)) return null
